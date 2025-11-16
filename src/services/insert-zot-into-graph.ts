@@ -43,13 +43,6 @@ export const insertZotIntoGraph = async (zotItem: ZotData) => {
     }
     if (!existingPage) return
 
-    // Create Attachments block
-    const attachmentsBlk = await logseq.Editor.appendBlockInPage(
-      existingPage.uuid,
-      '### Attachments',
-    )
-    if (!attachmentsBlk) return
-
     // Manually add one property by one property
     const selectedPageProps = logseq.settings?.pageProperties as string[]
     for (const prop of selectedPageProps) {
@@ -78,10 +71,11 @@ export const insertZotIntoGraph = async (zotItem: ZotData) => {
       } else if (prop === 'attachments') {
         for (const attachment of value) {
           const url = `[${attachment.title}](${decodeURI(attachment.url ?? attachment.href)})`
-          await logseq.Editor.insertBlock(attachmentsBlk.uuid, url, {
-            sibling: false,
-            before: false,
-          })
+          await logseq.Editor.upsertBlockProperty(
+            existingPage.uuid,
+            fixedProp,
+            url,
+          )
         }
       } else if (prop.includes('date') || prop.includes('Date')) {
         const page = await logseq.Editor.createJournalPage(

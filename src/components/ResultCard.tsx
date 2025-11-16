@@ -55,7 +55,6 @@ export const ResultCard = ({ flag, uuid, item, reset }: ResultCardProps) => {
   const insertZot = useCallback(async () => {
     const pageName = await insertZotIntoGraph(item)
     reset()
-    logseq.hideMainUI()
     if (!pageName) return
 
     const content = await logseq.Editor.getEditingBlockContent()

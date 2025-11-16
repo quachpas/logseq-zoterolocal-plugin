@@ -75,7 +75,7 @@ const main = async () => {
             await logseq.Editor.upsertProperty(
               fixedProp,
               {
-                type: 'url',
+                type: 'default',
                 cardinality: 'many',
               },
               { name: fixedProp },
