@@ -43,7 +43,7 @@ export const insertZotIntoGraph = async (zotItem: ZotData) => {
 
   // template[0] will always be the block properties
   const pageProps = await replaceTemplateWithValues(
-    template[0]!.content,
+    template[0]!.content as string,
     zotItem,
     collections,
   )

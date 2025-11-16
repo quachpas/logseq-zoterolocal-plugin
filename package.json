@@ -34,7 +34,7 @@
     ]
   },
   "dependencies": {
-    "@logseq/libs": "^0.0.17",
+    "@logseq/libs": "^0.2.4",
     "@mantine/core": "^7.12.1",
     "@mantine/hooks": "^7.12.1",
     "@tanstack/react-table": "^8.20.5",

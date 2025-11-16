@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@logseq/libs':
-        specifier: ^0.0.17
-        version: 0.0.17
+        specifier: ^0.2.4
+        version: 0.2.4
       '@mantine/core':
         specifier: ^7.12.1
         version: 7.12.1(@mantine/hooks@7.12.1(react@18.3.1))(@types/react@18.3.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -314,8 +314,8 @@ packages:
     resolution: {integrity: sha512-d2CGZR2o7fS6sWB7DG/3a95bGKQyHMACZ5aW8qGkkqQpUoZV6C0X7Pc7l4ZNMZkfNBf4VWNe9E1jRsf0G146Ew==}
     engines: {node: '>=18.18'}
 
-  '@logseq/libs@0.0.17':
-    resolution: {integrity: sha512-SkzzAaocmrgeHYrCOaRyEqzPOxw3d0qVEZSrt9qVvXE4tuEgbvEHR8tzI1N5RjgAv+PDWuGPiP7/mhcXHpINEw==}
+  '@logseq/libs@0.2.4':
+    resolution: {integrity: sha512-5Nl2EtdY5E+L44Lvihp2C79CfuQJ+o/2P1SgvOZdPJVirdh3lOx1FV2tSEKVY+QSZsEuC3XudNWoMP07EEd4Hg==}
 
   '@mantine/core@7.12.1':
     resolution: {integrity: sha512-PXKIDaT1fpNB77dPQIcdFGM2NRnfmsJSVx3uuBccngBQWMIWI0wPyiO1Y26DK4LQrbrypeb+TS+Zxpgx6RoiCA==}
@@ -647,8 +647,8 @@ packages:
     resolution: {integrity: sha512-WkrWp9GR4KXfKGYzOLmTuGVi1UWFfws377n9cc55/tb6DuqyF6pcQ5AbiHEshaDpY9v6oaSr2XCDidGmMwdzIA==}
     engines: {node: '>=8'}
 
-  dompurify@2.3.8:
-    resolution: {integrity: sha512-eVhaWoVibIzqdGYjwsBWodIQIaXFSB+cKDf4cfxLMsK0xiud6SE+/WCVx/Xw/UwQsa4cS3T2eITcdtmTg2UKcw==}
+  dompurify@2.5.4:
+    resolution: {integrity: sha512-l5NNozANzaLPPe0XaAwvg3uZcHtDBnziX/HjsY1UcDj1MxTK8Dd0Kv096jyPK5HRzs/XM5IMj20dW8Fk+HnbUA==}
 
   dot-case@3.0.4:
     resolution: {integrity: sha512-Kv5nKlh6yRrdrGvxeJ2e5y2eRUpkUosIW4A2AS38zwSz27zu7ufDwQPi5Jhs3XAlGNetl3bmnGhQsMtkKJnj3w==}
@@ -1531,12 +1531,12 @@ snapshots:
 
   '@humanwhocodes/retry@0.3.0': {}
 
-  '@logseq/libs@0.0.17':
+  '@logseq/libs@0.2.4':
     dependencies:
       csstype: 3.1.0
       debug: 4.3.4
       deepmerge: 4.3.1
-      dompurify: 2.3.8
+      dompurify: 2.5.4
       eventemitter3: 4.0.7
       fast-deep-equal: 3.1.3
       lodash-es: 4.17.21
@@ -1848,7 +1848,7 @@ snapshots:
     dependencies:
       path-type: 4.0.0
 
-  dompurify@2.3.8: {}
+  dompurify@2.5.4: {}
 
   dot-case@3.0.4:
     dependencies:
