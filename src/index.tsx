@@ -8,6 +8,7 @@ import { GlossaryObj } from './interfaces'
 import { isValidSettings } from './services/check-settings'
 import { createTemplateGlossary } from './services/create-template-glossary'
 import { testZotConnection } from './services/get-zot-items'
+import { setLogseqDbSchema } from './services/set-logseqdb-schema'
 import { handleSettings } from './settings'
 import { ZotContainer } from './ZotContainer'
 
@@ -24,6 +25,12 @@ const main = async () => {
 
   const validSettings = isValidSettings()
   if (!validSettings) return
+
+  // Create schema for ZotItem properties
+  const { supportDb } = await logseq.App.getInfo()
+  if (supportDb) {
+    await setLogseqDbSchema()
+  }
 
   const el = document.getElementById('app')
   if (!el) return

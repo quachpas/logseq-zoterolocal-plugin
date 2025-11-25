@@ -11,7 +11,7 @@ export const parseHtml = (htmlString: string) => {
   for (const element of elements) {
     if (element.tagName === 'H1') {
       result.push({
-        content: element.textContent ? `# ${element.textContent}` : '',
+        content: element.textContent ? `## ${element.textContent}` : '',
         children: [],
       })
     } else if (element.tagName === 'P') {
