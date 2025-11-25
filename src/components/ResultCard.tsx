@@ -57,8 +57,7 @@ export const ResultCard = ({ flag, uuid, item, reset }: ResultCardProps) => {
     reset()
     if (!pageName) return
 
-    const content = await logseq.Editor.getEditingBlockContent()
-    await logseq.Editor.updateBlock(uuid, `${content} [[${pageName}]]`)
+    await logseq.Editor.updateBlock(uuid, `[[${pageName}]]`)
   }, [item])
 
   const handleClick = () => {
