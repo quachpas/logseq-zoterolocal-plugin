@@ -21,6 +21,5 @@ export const insertZotIntoGraph = async (zotItem: ZotData) => {
   }
 
   logseq.UI.closeMsg(msgId)
-  logseq.UI.showMsg('Completed!', 'success')
   return pageName
 }

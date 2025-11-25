@@ -28,7 +28,6 @@ const main = async () => {
 
   // Create schema for ZotItem properties
   const { supportDb } = await logseq.App.getInfo()
-
   if (supportDb) {
     await setLogseqDbSchema()
   }

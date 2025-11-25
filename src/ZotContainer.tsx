@@ -2,7 +2,7 @@ import './styles/bg.css'
 import '@mantine/core/styles.css'
 
 import { createTheme, MantineProvider } from '@mantine/core'
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import { ItemsTable } from './features/items-table'
 import { SearchItem } from './features/search-item'

@@ -18,7 +18,11 @@ export const handleZotInDb = async (zotItem: ZotData, pageName: string) => {
   }
 
   let existingPage = await logseq.Editor.getPage(pageName)
-  if (!existingPage) {
+  if (existingPage) {
+    await logseq.UI.showMsg('Page already exists', 'warning')
+    logseq.App.pushState('page', { name: existingPage.name })
+    return
+  } else {
     //Create page
     existingPage = await logseq.Editor.createPage(
       pageName,
@@ -32,7 +36,14 @@ export const handleZotInDb = async (zotItem: ZotData, pageName: string) => {
   }
   if (!existingPage) return
 
+  // Add Zotero tag to page
+  await logseq.Editor.addBlockTag(
+    existingPage.uuid,
+    logseq.settings?.zotTag as string,
+  )
+
   // Manually add one property by one property
+  // Get properties on the fly in case it changes
   const selectedPageProps = logseq.settings?.pageProps as string[]
   for (const prop of selectedPageProps) {
     let fixedProp = ''
@@ -97,7 +108,7 @@ export const handleZotInDb = async (zotItem: ZotData, pageName: string) => {
       for (const id of creatorPageIds) {
         await logseq.Editor.upsertBlockProperty(
           existingPage.uuid,
-          'authors',
+          'creators',
           id,
         )
       }
@@ -119,7 +130,7 @@ export const handleZotInDb = async (zotItem: ZotData, pageName: string) => {
   // Insert abstract
   if (zotItem.abstractNote) {
     const abstractBlk = {
-      content: '# Abstract',
+      content: '## Abstract',
       children: [
         {
           content: zotItem.abstractNote,

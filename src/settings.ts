@@ -34,12 +34,20 @@ export const handleSettings = async ({
         default: '[@<% citeKey %>]',
       },
       {
+        key: 'zotTag',
+        type: 'string',
+        title: 'Zotero Tag Name',
+        description: `Specify the tag name used for Zotero imports`,
+        default: 'Zotero',
+      },
+      {
         key: 'pageProps',
         type: 'enum',
         title: 'Page Properties (DB version)',
         description: 'Indicate the properties to include for each Zotero item',
         default: [
           'accessDate',
+          'attachments',
           'citeKey',
           'collections',
           'creators',
@@ -67,6 +75,7 @@ export const handleSettings = async ({
         enumPicker: 'checkbox',
         enumChoices: [
           'accessDate',
+          'attachments',
           'citeKey',
           'collections',
           'creators',

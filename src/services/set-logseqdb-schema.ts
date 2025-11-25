@@ -1,4 +1,9 @@
 export const setLogseqDbSchema = async () => {
+  /**
+   Approach:
+   1) Define all properties
+   2) Add user-defined properties to Zotero tag
+   **/
   const allProps = await logseq.Editor.getAllProperties()
   if (allProps && allProps.length > 0) {
     const propsInserted = allProps.filter((prop) =>
@@ -53,27 +58,18 @@ export const setLogseqDbSchema = async () => {
           )
         } else if (prop === 'creators') {
           await logseq.Editor.upsertProperty(
-            'authors',
+            fixedProp,
             {
               cardinality: 'many',
               type: 'node',
             },
-            { name: 'authors' },
+            { name: fixedProp },
           )
         } else if (prop.includes('date') || prop.includes('Date')) {
           await logseq.Editor.upsertProperty(
             fixedProp,
             {
               type: 'date',
-              cardinality: 'one',
-            },
-            { name: fixedProp },
-          )
-        } else if (prop === 'itemType') {
-          await logseq.Editor.upsertProperty(
-            fixedProp,
-            {
-              type: 'node',
               cardinality: 'one',
             },
             { name: fixedProp },
@@ -108,4 +104,26 @@ export const setLogseqDbSchema = async () => {
       }
     }
   }
+
+  // Create Zotero tag
+  await logseq.Editor.createTag(logseq.settings?.zotTag as string)
+
+  // Add props to Zotero tag
+  const userDefinedProps = logseq.settings?.pageProps as string[]
+
+  for (const prop of userDefinedProps) {
+    let fixedProp = ''
+    if (prop !== 'ISSN' && prop !== 'ISBN' && prop !== 'DOI') {
+      fixedProp = prop.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`)
+    } else {
+      fixedProp = prop
+    }
+
+    await logseq.Editor.addTagProperty(
+      logseq.settings?.zotTag as string,
+      fixedProp,
+    )
+  }
+
+  await logseq.UI.showMsg(`Tag: ${logseq.settings?.zotTag} added`, 'success')
 }

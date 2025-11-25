@@ -65,7 +65,7 @@ export const handleZotInMd = async (zotItem: ZotData, pageName: string) => {
       pageName,
       {},
       {
-        redirect: false,
+        redirect: true,
         createFirstBlock: false,
         journal: false,
       },
