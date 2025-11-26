@@ -80,7 +80,11 @@ export const handleZotInDb = async (zotItem: ZotData, pageName: string) => {
           url,
         )
       }
-    } else if (prop.includes('date') || prop.includes('Date')) {
+    } else if (
+      prop === 'accessDate' ||
+      prop === 'dateAdded' ||
+      prop === 'dateModified'
+    ) {
       const page = await logseq.Editor.createJournalPage(
         format(
           parseISO(value) || parse(value, 'yyyy-MM-dd', new Date()),

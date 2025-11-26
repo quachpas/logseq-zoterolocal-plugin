@@ -65,7 +65,11 @@ export const setLogseqDbSchema = async () => {
             },
             { name: fixedProp },
           )
-        } else if (prop.includes('date') || prop.includes('Date')) {
+        } else if (
+          prop === 'accessDate' ||
+          prop === 'dateAdded' ||
+          prop === 'dateModified'
+        ) {
           await logseq.Editor.upsertProperty(
             fixedProp,
             {
