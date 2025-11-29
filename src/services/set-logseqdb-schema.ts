@@ -129,5 +129,8 @@ export const setLogseqDbSchema = async () => {
     )
   }
 
-  await logseq.UI.showMsg(`Tag: ${logseq.settings?.zotTag} added`, 'success')
+  await logseq.UI.showMsg(
+    `logseq-zoterolocal-plugin loaded. Tag: ${logseq.settings?.zotTag} added.`,
+    'success',
+  )
 }

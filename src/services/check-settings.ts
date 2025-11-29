@@ -1,10 +1,10 @@
-export const isValidSettings = () => {
+export const isValidSettings = async () => {
   if (
     !['<% citeKey %>', '<% title %>', '<% shortTitle %>'].some((placeholder) =>
       (logseq.settings!.pagenameTemplate as string).includes(placeholder),
     )
   ) {
-    logseq.UI.showMsg(
+    await logseq.UI.showMsg(
       'Illegal page name template. Please check plugin settings',
       'error',
     )
@@ -17,7 +17,7 @@ export const isValidSettings = () => {
         (logseq.settings!.authorTemplate as string).includes(placeholder),
     )
   ) {
-    logseq.UI.showMsg(
+    await logseq.UI.showMsg(
       'Illegal author template. Please check plugin settings',
       'error',
     )

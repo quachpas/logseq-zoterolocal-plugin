@@ -13,8 +13,6 @@ import { handleSettings } from './settings'
 import { ZotContainer } from './ZotContainer'
 
 const main = async () => {
-  console.log('logseq-zoterolocal-plugin loaded')
-
   // Used to handle any popups
   handlePopup()
 
@@ -23,14 +21,10 @@ const main = async () => {
   handleSettings(response)
   if (response.code === 'error') return
 
-  const validSettings = isValidSettings()
-  if (!validSettings) return
+  // Check for valid settings
+  await isValidSettings()
 
   // Create schema for ZotItem properties
-  const { supportDb } = await logseq.App.getInfo()
-  if (supportDb) {
-    await setLogseqDbSchema()
-  }
 
   const el = document.getElementById('app')
   if (!el) return
@@ -139,6 +133,13 @@ const main = async () => {
 
     await createTemplateGlossary(glossaryObj, e.uuid)
   })
+
+  setTimeout(async () => {
+    const { supportDb } = await logseq.App.getInfo()
+    if (supportDb) {
+      await setLogseqDbSchema()
+    }
+  }, 3000)
 }
 
 logseq.ready(main).catch(console.error)
