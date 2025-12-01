@@ -134,6 +134,7 @@ const main = async () => {
     await createTemplateGlossary(glossaryObj, e.uuid)
   })
 
+  // Timeout needed as Logseq may not have initialised yet before setting props
   setTimeout(async () => {
     const { supportDb } = await logseq.App.getInfo()
     if (supportDb) {

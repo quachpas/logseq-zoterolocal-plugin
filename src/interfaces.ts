@@ -77,6 +77,7 @@ export interface ZotItem {
     creators?: CreatorItem[]
     publisher?: string
     ISBN?: string
+    ISSN?: string
     pages?: string
     bookTitle?: string
     volume?: string
@@ -84,9 +85,83 @@ export interface ZotItem {
     DOI?: string
     issue?: string
     journalAbbreviation?: string
-    ISSN?: string
     repository?: string
     archiveID?: string
+    archive?: string
+    archiveLocation?: string
+    callNumber?: string
+    series?: string
+    seriesNumber?: string
+    seriesText?: string
+    seriesTitle?: string
+    numberOfVolumes?: string
+    numPages?: string
+    place?: string
+    university?: string
+    institution?: string
+    company?: string
+    country?: string
+    court?: string
+    legislativeBody?: string
+    committee?: string
+    distributor?: string
+    meetingPlace?: string
+    year?: string
+    month?: string
+    day?: string
+    filingDate?: string
+    issueDate?: string
+    caseName?: string
+    docketNumber?: string
+    code?: string
+    codeNumber?: string
+    codePages?: string
+    codeVolume?: string
+    billNumber?: string
+    applicationNumber?: string
+    patentNumber?: string
+    issuingAuthority?: string
+    legalStatus?: string
+    reportNumber?: string
+    reportType?: string
+    thesisType?: string
+    manuscriptType?: string
+    mapType?: string
+    scale?: string
+    presentationType?: string
+    meetingName?: string
+    artworkMedium?: string
+    artworkSize?: string
+    medium?: string
+    audioFileType?: string
+    audioRecordingFormat?: string
+    videoRecordingFormat?: string
+    runningTime?: string
+    radioProgramTitle?: string
+    tvProgramTitle?: string
+    network?: string
+    studio?: string
+    label?: string
+    websiteTitle?: string
+    websiteType?: string
+    blogTitle?: string
+    forumTitle?: string
+    postType?: string
+    encyclopediaTitle?: string
+    edition?: string
+    firstPage?: string
+    section?: string
+    subject?: string
+    genre?: string
+    references?: string
+    history?: string
+    system?: string
+    versionNumber?: string
+    email?: string
+    rights?: string
+    license?: string
+    number?: string
+    assignee?: string
   }
 }
 
@@ -132,46 +207,7 @@ export interface ZotCollection {
 }
 // DO NOT TOUCH ABOVE SECTION //
 
-export interface ZotData {
-  abstractNote?: string
-  accessDate?: string
-  archiveID?: string
-  bookTitle?: string
-  charset?: string
-  collections?: CollectionItem[] | string[]
-  contentType?: string
-  creators?: CreatorItem[]
-  date?: string
-  dateAdded: string
-  dateModified: string
-  DOI?: string
-  extra?: string
-  filename?: string
-  ISBN?: string
-  ISSN?: string
-  issue?: string
-  itemType: string
-  journalAbbreviation?: string
-  key: string
-  language?: string
-  libraryCatalog?: string
-  linkMode?: string
-  md5?: string
-  mtime?: number
-  note?: string
-  pages?: string
-  parentItem?: string
-  publicationTitle?: string
-  publisher?: string
-  relations: Record<string, never>
-  repository?: string
-  shortTitle?: string
-  tags: TagItem[]
-  title: string
-  url?: string
-  version: number
-  volume?: string
-  // Self created items
+export type ZotData = ZotItem['data'] & {
   attachments: AttachmentItem[]
   citeKey: string
   inGraph: boolean
