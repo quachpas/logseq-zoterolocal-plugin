@@ -13,20 +13,21 @@ Connect locally to Zotero 7 (and above) and pull your items into Logseq without 
 - Easy insertion of Zotero items into your graph
 - Track which items are already in your graph
 - Fuzzy search for the articles that you want to insert
+- Support for Logseq DB version properties
 
 ## Installation
 
-1. Recommended: Install from the Logseq marketplace.
-2. Alternative: Download a release and manually load it in Logseq.
+1. **Recommended:** Install from the Logseq marketplace.
+2. **Alternative:** Download a release and manually load it in Logseq.
 
 ## Setup
 
 1. Close Logseq.
 2. Ensure Zotero 7 is running, and then:
    - In settings, under `Advanced`, check `Allow other applications on this computer to communicate with Zotero`.
-   - (only if you want to citation keys) Install [Better Bibtex](https://github.com/retorquere/zotero-better-bibtex/releases).
+   - (Optional, if you want citation keys) Install [Better Bibtex](https://github.com/retorquere/zotero-better-bibtex/releases).
    - In the Better Bibtex section of your Zotero settings, ensure that `Automatically pin citation key after X seconds` is set to `1`.
-   - Note: Citation keys need to be **both** set up and pinned in Zotero 7 in order to use citation keys in Logseq. If you have issues setting this up, please seek help at the Zotero or Better Bibtex forums as I may not be as familiar.
+   - **Note:** Citation keys need to be **both** set up and pinned in Zotero 7 in order to use citation keys in Logseq. If you have issues setting this up, please seek help at the Zotero or Better Bibtex forums.
    - Restart Zotero.
 3. Open Logseq, and then plugin settings.
 4. Verify that "Connection to Zotero is working" is checked.
@@ -36,12 +37,12 @@ Connect locally to Zotero 7 (and above) and pull your items into Logseq without 
 
 ## Usage
 
-1. Create a Zotero template:
-   - Go to any page that will hold your Zotero template.
-   - Type `/Insert Zotero template`.
-   - A sample template will be generated (example below). Customize as needed.
-   > Note: The <% notes %> should not be in the page properties as the content can be very long
-   - If you change the template name, update it in the plugin settings.
+### 1. Create a Zotero template
+- Go to any page that will hold your Zotero template.
+- Type `/Insert Zotero template`.
+- A sample template will be generated (example below). Customize as needed.
+> **Note:** The `<% notes %>` placeholder should not be in the page properties as the content can be very long.
+- If you change the template name, update it in the plugin settings under "Template Name (MD version)".
 
 ```
   accessDate:: <% accessDate %>
@@ -74,24 +75,31 @@ Connect locally to Zotero 7 (and above) and pull your items into Logseq without 
   volume:: <% volume %>
 ```
 
-2. Insert Zotero item:
-   - Navigate to the page where you want to insert a Zotero item.
-   - Type `/Zotero: Insert full item`.
-   - Perform your search.
-   - Click the desired item.
-   - A new page will be created, and a reference to it will be inserted at your cursor position.
-  
-3. Insert citation
-   - Ensure that your citation key template is set up in your plugin settings.
-   - Navigate to the page where you want to insert a Zotero item.
-   - Type `/Zotero: Insert citation`.
-   - Perform your search.
-   - Click the desired item.
-   - Citation will be added to your cursor position.
+### 2. Insert Zotero item
+- Navigate to the page where you want to insert a Zotero item.
+- Type `/Zotero: Insert full item`.
+- Perform your search.
+- Click the desired item.
+- A new page will be created, and a reference to it will be inserted at your cursor position.
+
+### 3. Insert citation
+- Ensure that your citation key template is set up in your plugin settings.
+- Navigate to the page where you want to insert a citation.
+- Type `/Zotero: Cite (insert citation)`.
+- Perform your search.
+- Click the desired item.
+- The citation will be added to your cursor position.
 
 ## Configuration
 
-For Citation Key, Author and Page Name templates, use only the stated placeholders. Refer to the plugin settings for available options.
+Go to Logseq Settings > Plugin Settings > logseq-zoterolocal-plugin to configure:
+
+- **Page Name Template:** Specify the page name for each Zotero import. Available placeholders: `<% citeKey %>`, `<% title %>`.
+- **Template for Cite Key:** Specify the template when using the command `/Zotero: Cite (insert citation)`. Ensure that `<% citeKey %>` placeholder is indicated.
+- **Zotero Tag Name:** Specify the tag name used for Zotero imports (Default: `Zotero`).
+- **Page Properties (DB version):** Indicate the properties to include for each Zotero item (only visible/applicable if you are using the Logseq DB version).
+- **Template Name (MD version):** The template name that holds your template for a Zotero page.
+- **Author Template (MD version):** Specify how authors should be shown in the properties. Available placeholders: `<% firstName %>`, `<% lastName %>`, `<% creatorType %>`.
 
 ## Support
 
