@@ -4,13 +4,19 @@ import { handleZotInMd } from './handle-zot-md'
 
 export const insertZotIntoGraph = async (zotItem: ZotData) => {
   logseq.hideMainUI()
-  const msgId = await logseq.UI.showMsg('Inserting into graph...', 'warning')
+  const msgId = await logseq.UI.showMsg(
+    'Inserting into graph. Please wait...',
+    'warning',
+    {},
+  )
   const { supportDb } = await logseq.App.getInfo()
 
   const pageName = (logseq.settings!.pagenameTemplate as string)
     .replace('<% title %>', zotItem.title)
     .replace('<% citeKey %>', zotItem.citeKey)
     .trim()
+
+  console.log(zotItem)
 
   if (supportDb) {
     await handleZotInDb(zotItem, pageName)
@@ -21,5 +27,6 @@ export const insertZotIntoGraph = async (zotItem: ZotData) => {
   }
 
   logseq.UI.closeMsg(msgId)
+  await logseq.UI.showMsg('Inserted zotero item successfully', 'success')
   return pageName
 }

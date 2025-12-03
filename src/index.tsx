@@ -3,7 +3,6 @@ import '@logseq/libs'
 import { BlockCursorPosition } from '@logseq/libs/dist/LSPlugin'
 import { createRoot } from 'react-dom/client'
 
-import { handlePopup } from './handle-popup'
 import { GlossaryObj } from './interfaces'
 import { isValidSettings } from './services/check-settings'
 import { createTemplateGlossary } from './services/create-template-glossary'
@@ -14,7 +13,6 @@ import { ZotContainer } from './ZotContainer'
 
 const main = async () => {
   // Used to handle any popups
-  handlePopup()
 
   // Get initial items
   const response = await testZotConnection()

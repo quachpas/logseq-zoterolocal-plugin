@@ -46,6 +46,8 @@ export const handleZotInDb = async (zotItem: ZotData, pageName: string) => {
   // Get properties on the fly in case it changes
   const selectedPageProps = logseq.settings?.pageProps as string[]
   for (const prop of selectedPageProps) {
+    console.log('Inserting prop into page', prop)
+
     let fixedProp = ''
     if (prop !== 'ISSN' && prop !== 'ISBN' && prop !== 'DOI') {
       fixedProp = prop.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`)
@@ -60,6 +62,8 @@ export const handleZotInDb = async (zotItem: ZotData, pageName: string) => {
     Insert properties
     *******/
     if (
+      prop === 'abstractNote' ||
+      prop === 'notes' ||
       prop === 'version' ||
       prop === 'collections' ||
       prop === 'pages' ||
@@ -115,6 +119,21 @@ export const handleZotInDb = async (zotItem: ZotData, pageName: string) => {
           'creators',
           id,
         )
+      }
+    } else if (prop === 'tags') {
+      const tagPageIds = []
+
+      for (const t of value) {
+        const page = await logseq.Editor.createPage(
+          t.tag,
+          {},
+          { redirect: false },
+        )
+        if (page) tagPageIds.push(page.id)
+      }
+
+      for (const id of tagPageIds) {
+        await logseq.Editor.upsertBlockProperty(existingPage.uuid, 'tags', id)
       }
     } else {
       await logseq.Editor.upsertBlockProperty(

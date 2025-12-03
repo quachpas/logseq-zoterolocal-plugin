@@ -1,9 +1,9 @@
 import { ZOT_DATA_KEY_MAP } from '../constants'
 
 export const setLogseqDbSchema = async () => {
-  const _addingTagMsg = await logseq.UI.showMsg(
+  const addingTagMsg = await logseq.UI.showMsg(
     'Adding tag. Please wait...',
-    'success',
+    'warning',
   )
   /**
    Approach:
@@ -21,6 +21,7 @@ export const setLogseqDbSchema = async () => {
       const allLsProps = await logseq.Editor.getAllProperties()
 
       for (const prop of propsArray) {
+        console.log('Adding property schema ', prop, ' to Logseq')
         let fixedProp = ''
         if (prop !== 'ISSN' && prop !== 'ISBN' && prop !== 'DOI') {
           fixedProp = prop.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`)
@@ -98,23 +99,23 @@ export const setLogseqDbSchema = async () => {
   await logseq.Editor.createTag(logseq.settings?.zotTag as string)
 
   // Add props to Zotero tag
-  const userDefinedProps = logseq.settings?.pageProps as string[]
+  //const userDefinedProps = logseq.settings?.pageProps as string[]
 
-  for (const prop of userDefinedProps) {
-    let fixedProp = ''
-    if (prop !== 'ISSN' && prop !== 'ISBN' && prop !== 'DOI') {
-      fixedProp = prop.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`)
-    } else {
-      fixedProp = prop
-    }
+  //for (const prop of userDefinedProps) {
+  //  let fixedProp = ''
+  //  if (prop !== 'ISSN' && prop !== 'ISBN' && prop !== 'DOI') {
+  //    fixedProp = prop.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`)
+  //  } else {
+  //    fixedProp = prop
+  //  }
 
-    await logseq.Editor.addTagProperty(
-      logseq.settings?.zotTag as string,
-      fixedProp,
-    )
-  }
+  //  await logseq.Editor.addTagProperty(
+  //    logseq.settings?.zotTag as string,
+  //    fixedProp,
+  //  )
+  //}
 
-  logseq.UI.closeMsg('addingTagMsg')
+  logseq.UI.closeMsg(addingTagMsg)
 
   await logseq.UI.showMsg(
     `logseq-zoterolocal-plugin loaded. Tag: ${logseq.settings?.zotTag} added.`,
