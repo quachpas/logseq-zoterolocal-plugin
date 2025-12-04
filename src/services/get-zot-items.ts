@@ -77,7 +77,7 @@ const getZotItems = async (queryString?: string) => {
     const endTime = performance.now()
     console.log(
       'logseq-zoterolocal-plugin: Time taken for query: ',
-      endTime - startTime,
+      (endTime - startTime).toFixed(2),
       'ms',
     )
 
