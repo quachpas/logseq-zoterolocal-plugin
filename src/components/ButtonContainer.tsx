@@ -7,10 +7,11 @@ import {
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 
 import { ZotData } from '../interfaces'
+import { setLogseqDbSchema } from '../services/set-logseqdb-schema'
 
 interface FormValues {
   pageSize: string
@@ -59,6 +60,13 @@ export const ButtonContainer = ({
     </>
   )
 
+  const setupSchemaForZoteroProps = useCallback(async () => {
+    const { supportDb } = await logseq.App.getInfo()
+    if (supportDb) {
+      await setLogseqDbSchema()
+    }
+  }, [pageSize])
+
   return (
     <Stack gap="sm">
       <Group>
@@ -68,6 +76,10 @@ export const ButtonContainer = ({
         >
           {showColumnChooser ? 'Close' : 'Choose Columns'}
         </Button>
+        <Button size="xs" onClick={setupSchemaForZoteroProps}>
+          Setup schema for Zotero properties
+        </Button>
+
         {showColumnChooser && <ColumnVisibilityChooser />}
       </Group>
 

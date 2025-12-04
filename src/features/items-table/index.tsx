@@ -1,4 +1,12 @@
-import { Container, Group, Loader, Space, Text, Title } from '@mantine/core'
+import {
+  Button,
+  Container,
+  Group,
+  Loader,
+  Space,
+  Text,
+  Title,
+} from '@mantine/core'
 import { ShieldAlert, SquareX } from 'lucide-react'
 import { useCallback } from 'react'
 
@@ -21,7 +29,9 @@ export const ItemsTable = () => {
     >
       <Group justify="space-between">
         <Title size="2rem">logseq-zoterolocal-plugin</Title>
-        <SquareX onClick={handleClose} id="zot-close-button" />
+        <Button onClick={handleClose} id="zot-close-button">
+          <SquareX />
+        </Button>
       </Group>
       <Space h="1rem" />
       <>

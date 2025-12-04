@@ -7,7 +7,6 @@ import { GlossaryObj } from './interfaces'
 import { isValidSettings } from './services/check-settings'
 import { createTemplateGlossary } from './services/create-template-glossary'
 import { testZotConnection } from './services/get-zot-items'
-import { setLogseqDbSchema } from './services/set-logseqdb-schema'
 import { handleSettings } from './settings'
 import { ZotContainer } from './ZotContainer'
 
@@ -131,14 +130,6 @@ const main = async () => {
 
     await createTemplateGlossary(glossaryObj, e.uuid)
   })
-
-  // Timeout needed as Logseq may not have initialised yet before setting props
-  setTimeout(async () => {
-    const { supportDb } = await logseq.App.getInfo()
-    if (supportDb) {
-      await setLogseqDbSchema()
-    }
-  }, 3000)
 }
 
 logseq.ready(main).catch(console.error)
