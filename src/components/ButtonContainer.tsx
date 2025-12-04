@@ -79,7 +79,6 @@ export const ButtonContainer = ({
         <Button size="xs" onClick={setupSchemaForZoteroProps}>
           Setup schema for Zotero properties
         </Button>
-
         {showColumnChooser && <ColumnVisibilityChooser />}
       </Group>
 
