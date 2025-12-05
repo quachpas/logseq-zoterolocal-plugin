@@ -1,10 +1,11 @@
 import { Badge, Flex, Text, Title } from '@mantine/core'
-import { useCallback } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { UseFormReset } from 'react-hook-form'
 
 import { FormValues } from '../features/search-item'
 import { CreatorItem, ZotData } from '../interfaces'
 import { insertZotIntoGraph } from '../services/insert-zot-into-graph'
+import { replaceTemplateWithValues } from '../services/replace-template-with-values'
 import divStyle from '../styles/Div.module.css'
 
 interface ResultCardProps {
@@ -12,6 +13,8 @@ interface ResultCardProps {
   uuid: string
   item: ZotData
   reset: UseFormReset<FormValues>
+  isSelected?: boolean
+  onSelect?: () => void
 }
 
 const Creators = ({
@@ -31,8 +34,9 @@ const Creators = ({
   )
 }
 
-export const ResultCard = ({ flag, uuid, item, reset }: ResultCardProps) => {
+export const ResultCard = ({ flag, uuid, item, reset, isSelected = false, onSelect }: ResultCardProps) => {
   const { title, creators, itemType, citeKey, date } = item
+  const cardRef = useRef<HTMLDivElement>(null)
 
   const insertCitation = useCallback(async () => {
     if (!citeKey || citeKey === 'N/A') {
@@ -42,9 +46,9 @@ export const ResultCard = ({ flag, uuid, item, reset }: ResultCardProps) => {
       )
       return
     }
-    const templateStr = (logseq.settings!.citekeyTemplate as string).replace(
-      `<% citeKey %>`,
-      citeKey,
+    const templateStr = await replaceTemplateWithValues(
+      logseq.settings!.citekeyTemplate as string,
+      item,
     )
     await logseq.Editor.insertAtEditingCursor(templateStr)
 
@@ -60,18 +64,40 @@ export const ResultCard = ({ flag, uuid, item, reset }: ResultCardProps) => {
     await logseq.Editor.updateBlock(uuid, `[[${pageName}]]`)
   }, [item])
 
+
   const handleClick = () => {
     if (flag === 'citation') insertCitation()
     if (flag === 'full') insertZot()
   }
 
+  // Listen for selectItem event from keyboard navigation
+  useEffect(() => {
+    if (!isSelected) return
+
+    const handleSelectEvent = () => {
+      if (isSelected) {
+        handleClick()
+      }
+    }
+
+    const container = cardRef.current?.parentElement
+    container?.addEventListener('selectItem', handleSelectEvent)
+
+    return () => {
+      container?.removeEventListener('selectItem', handleSelectEvent)
+    }
+  }, [isSelected, handleClick])
+
   return (
     <Flex
+      ref={cardRef}
       onClick={handleClick}
+      onMouseEnter={onSelect}
       direction="row"
       justify="space-between"
       my="0.2rem"
       className={divStyle.div}
+      style={isSelected ? { backgroundColor: '#dbeafe' } : undefined}
     >
       <Flex p="lg" w="70%" direction="column">
         <Title size="md">
